@@ -1,0 +1,42 @@
+name: CI - Tests and Coverage
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        # Använd npm install om du inte är 100% på att du har en uppdaterad package-lock.json
+        run: npm install
+
+      - name: Run unit tests with coverage (Vitest)
+        run: npm run test:coverage
+
+      # Valfritt men snyggt: ladda upp HTML-rapporten som artifact
+      - name: Upload coverage report
+        if: always()        # kör även om testen failar, så du kan inspektera
+        uses: actions/upload-artifact@v4
+        with:
+            name: coverage-report
+            path: coverage
