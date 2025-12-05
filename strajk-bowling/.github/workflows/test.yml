@@ -12,7 +12,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    defaults:
+    defaults: 
       run:
         working-directory: ./strajk-bowling
 
