@@ -2,11 +2,9 @@ name: CI - Tests and Coverage
 
 on:
   push:
-    branches:
-      - "main"
+    branches: ["main"]
   pull_request:
-    branches:
-      - "main"
+    branches: ["main"]
 
 jobs:
   test:
@@ -20,18 +18,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-
-      # Debug-steg så vi ser strukturen i Actions-loggen
-      - name: Show files in repo root
-        run: |
-          pwd
-          ls
+          cache: "npm"
 
       - name: Install dependencies
-        working-directory: ./strajk-bowling
         run: npm ci
 
       - name: Run tests with coverage
-        working-directory: ./strajk-bowling
         run: npm run test:coverage
