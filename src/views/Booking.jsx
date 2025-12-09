@@ -102,16 +102,15 @@ function Booking() {
   async function book() {
     let errorMessage = "";
 
-6 hours ago
-Added code
+
+
     if (
       !booking.when ||
       booking.lanes < 1 ||
       !booking.time ||
       booking.people < 1
     ) {
-5 days ago
-Added code
+
       errorMessage = "Alla fälten måste vara ifyllda";
     } else if (!comparePeopleAndShoes()) {
       errorMessage = "Antalet skor måste stämma överens med antal spelare";
