@@ -1,3 +1,7 @@
+## Inspelnings-länk:
+https://youtu.be/MZnCi7ZH6pA
+
+
 # Individuell examination: Strajk bowling
 
 ## Bakgrund
