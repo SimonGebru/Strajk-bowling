@@ -23,6 +23,7 @@ import { MemoryRouter } from "react-router-dom";
 import Booking from "./Booking";
 
 // Helper för att rendera Booking med Router
+// P2
 function renderBooking() {
   return render(
     <MemoryRouter>
@@ -39,6 +40,7 @@ describe("Booking – formulär för datum/tid/spelare/banor", () => {
   // - Användaren ska kunna välja datum och tid.
   // - Användaren ska kunna ange antal spelare (minst 1).
   // - Användaren ska kunna reservera ett eller flera banor.
+  // (P3)
   test("renderar inputfält/sektioner för datum, tid, antal spelare och antal banor", () => {
     renderBooking();
 
@@ -60,6 +62,7 @@ describe("Booking – formulär för datum/tid/spelare/banor", () => {
 
   // AC:
   // - "Ifall användaren inte fyller i något av ovanstående så ska ett felmeddelande visas."
+  // [P4] 
   test("visar felmeddelande om användaren försöker boka utan att fylla i alla fält", async () => {
     renderBooking();
     const user = userEvent.setup();
@@ -78,6 +81,7 @@ describe("Booking – formulär för datum/tid/spelare/banor", () => {
   // - "Om det inte finns tillräckligt med lediga banor för det angivna
   //    antalet spelare, ska användaren få ett felmeddelande."
   // (I appen: max 4 spelare per bana.)
+  // [P5]
   test("visar felmeddelande om man försöker boka fler än 4 spelare per bana", async () => {
     renderBooking();
     const user = userEvent.setup();
@@ -126,6 +130,7 @@ describe("Booking – formulär för datum/tid/spelare/banor", () => {
   // AC:
   // - "Ifall användaren inte fyller i något av ovanstående så ska ett felmeddelande visas."
   // Denna loop testar flera kombinationer av saknade fält, alla ska ge samma felmeddelande.
+  // [P6]
   const incompleteBookingCases = [
     {
       label: "saknar datum",
@@ -156,7 +161,7 @@ describe("Booking – formulär för datum/tid/spelare/banor", () => {
       lanes: "",
     },
   ];
-
+// [P6]
   incompleteBookingCases.forEach(({ label, when, time, people, lanes }) => {
     test(
       `visar generellt felmeddelande när bokningen ${label}`,
@@ -210,6 +215,7 @@ describe("Booking – skor (skostorlek per spelare)", () => {
   // - "Användaren ska kunna ange skostorlek för varje spelare."
   // - "Användaren ska kunna ändra skostorlek för varje spelare."
   // - "Det ska vara möjligt att välja skostorlek för alla spelare som ingår i bokningen."
+  // [P7] 
   test("låter mig lägga till skor och ange/ändra skostorlek för varje spelare", async () => {
     renderBooking();
     const user = userEvent.setup();
@@ -247,6 +253,7 @@ describe("Booking – skor (skostorlek per spelare)", () => {
 
   // AC:
   // - "Om antalet personer och skor inte matchas ska ett felmeddelande visas."
+  // [P8]
   test("visar felmeddelande om antalet spelare och antal skor inte matchar", async () => {
     renderBooking();
     const user = userEvent.setup();
@@ -295,6 +302,7 @@ describe("Booking – skor (skostorlek per spelare)", () => {
   // AC:
   // - "Om användaren försöker slutföra bokningen utan att ange skostorlek
   //    för en spelare som har valt att boka skor, ska systemet visa ett felmeddelande..."
+  // [P9] 
   test("visar felmeddelande om någon sko saknar skostorlek", async () => {
     renderBooking();
     const user = userEvent.setup();
@@ -342,6 +350,7 @@ describe("Booking – skor (skostorlek per spelare)", () => {
   // AC:
   // - "Användaren ska kunna ta bort ett tidigare valt fält för skostorlek
   //    genom att klicka på en '-'-knapp vid varje spelare."
+  // [P10] 
   test("tar bort ett skofält när jag klickar på minus-knappen", async () => {
     renderBooking();
     const user = userEvent.setup();
@@ -384,7 +393,7 @@ describe("Booking – POST-anrop & MSW (bokningsnummer + pris)", () => {
   //    'slutför bokning'-knapp."
   // - "Systemet ska beräkna den totala summan för bokningen baserat på
   //    antalet spelare samt antalet reserverade banor."
-  
+  // [P11] 
   test("skickar POST med rätt payload när bokningen är giltig", async () => {
     const fetchSpy = vi.spyOn(window, "fetch");
 
@@ -446,6 +455,7 @@ describe("Booking – POST-anrop & MSW (bokningsnummer + pris)", () => {
   // - "Om användaren tar bort skostorleken ska systemet inte inkludera
   //    den spelaren i skorantalet och priset för skor i den totala bokningssumman."
   // Här verifierar jag att den borttagna skon inte finns kvar i POST-payloaden.
+  // [P12]
   test("skickar inte med borttagen sko i payloaden (antal skor uppdateras efter minus)", async () => {
     const fetchSpy = vi.spyOn(window, "fetch");
 

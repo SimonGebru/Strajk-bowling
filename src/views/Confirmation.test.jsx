@@ -22,6 +22,7 @@ import Confirmation from "./Confirmation";
 
 // Helper: rendera Confirmation i en Router eftersom komponenten
 // använder useLocation + sessionStorage.
+// [P14]
 function renderConfirmation() {
   return render(
     <MemoryRouter initialEntries={["/confirmation"]}>
@@ -33,6 +34,7 @@ function renderConfirmation() {
 }
 
 // Nollställ sessionStorage inför varje test
+// [P15]
 beforeEach(() => {
   sessionStorage.clear();
 });
@@ -41,6 +43,7 @@ describe("Confirmation – sessionStorage-beteende", () => {
   // AC-koppling:
   // - "Om användaren navigerar till bekräftelsevyn och ingen bokning är gjord
   //    eller finns i session storage ska texten 'Ingen bokning gjord visas'."
+  // [P16] 
   test("visar text om att ingen bokning är gjord när det inte finns någon bokning sparad", () => {
     renderConfirmation();
 
@@ -55,6 +58,7 @@ describe("Confirmation – sessionStorage-beteende", () => {
   //    efter att bokningen är slutförd."
   // - "Systemet ska beräkna och visa den totala summan för bokningen..."
   // - "Den totala summan ska visas tydligt på bekräftelsesidan..."
+  // [P17]
   test("visar sparad bokning från sessionStorage (datum, antal spelare, banor, bokningsnummer och totalpris)", () => {
     const mockConfirmation = {
       when: "2025-12-20T18:00",
